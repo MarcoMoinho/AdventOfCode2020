@@ -5,23 +5,9 @@ $ErrorActionPreference = "Stop"
 $inputs = Get-Content .\05.txt
 
 function Get-Seat ([string] $bsp) {
-    $min = 0; $max = 128
-    for ($char = 0; $char -lt 7; $char++) {
-        switch ($bsp[$char]) {
-            "F" { $max = $max - ($max - $min) / 2 }
-            "B" { $min = $max - ($max - $min) / 2 }
-        }
-    }
-    $row = $max - 1
-    $min = 0; $max = 8
-    for ($char = 7; $char -lt 10; $char++) {
-        switch ($bsp[$char]) {
-            "L" { $max = $max - ($max - $min) / 2 }
-            "R" { $min = $max - ($max - $min) / 2 }
-        }
-    }
-    $col = $max - 1
-    return $row * 8 + $col
+    $row = $bsp.Substring(0,7) -replace "F", "0" -replace "B", "1"
+    $col = $bsp.Substring(7,3) -replace "L", "0" -replace "R", "1"
+    return ([convert]::ToInt32($row, 2) * 8) + [convert]::ToInt32($col, 2)
 }
 
 $part_1 = 0
