@@ -48,4 +48,4 @@ for ($i = 0; $i -lt $inputs.Count; $i++) {
     $p2 = Test-Program $new
     if (-not $p2.loop) { break }
 }
-Write-Output "Part 1: $($p2.acc), looped?: $($p2.loop)"
+Write-Output "Part 2: $($p2.acc), looped?: $($p2.loop)"
